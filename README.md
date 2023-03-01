@@ -18,5 +18,22 @@
 
 ---
 
-## DOCUMENTATION:
-* Coming soon...
+Maven Usage (With jitpack):
+```XML
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+```
+
+Dependency:
+```XML
+        <dependency>
+            <groupId>com.github.BlueSlimeDev</groupId>
+            <artifactId>MenuHandlerAPI</artifactId>
+            <version>TAG</version>
+            <!-- TAG = latest version, for example:
+            <version>0.2.1</version>
+            -->
+        </dependency>
+```
