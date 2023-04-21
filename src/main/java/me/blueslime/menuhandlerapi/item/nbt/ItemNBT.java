@@ -2,8 +2,6 @@ package me.blueslime.menuhandlerapi.item.nbt;
 
 import java.lang.reflect.Method;
 
-import me.blueslime.nmshandlerapi.SpecifiedClass;
-import me.blueslime.nmshandlerapi.method.MethodData;
 import me.blueslime.nmshandlerapi.utils.presets.Presets;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
@@ -46,14 +44,6 @@ public class ItemNBT {
             this.reflectionItem = itemStack.getMethod("asNMSCopy", ItemStack.class);
 
             this.item = reflectionItem.getReturnType();
-
-            SpecifiedClass clazz = SpecifiedClass.build(
-                    item.getName()
-            );
-
-            if (clazz.exists()) {
-                clazz.showMethods(MethodData.SearchMethod.DEFAULT);
-            }
 
             this.bukkitItem = itemStack.getMethod("asBukkitCopy", item);
 
