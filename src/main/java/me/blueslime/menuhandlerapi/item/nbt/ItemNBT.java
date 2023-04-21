@@ -2,6 +2,8 @@ package me.blueslime.menuhandlerapi.item.nbt;
 
 import java.lang.reflect.Method;
 
+import me.blueslime.nmshandlerapi.SpecifiedClass;
+import me.blueslime.nmshandlerapi.method.MethodData;
 import me.blueslime.nmshandlerapi.utils.presets.Presets;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
@@ -45,6 +47,14 @@ public class ItemNBT {
 
             this.item = reflectionItem.getReturnType();
 
+            SpecifiedClass clazz = SpecifiedClass.build(
+                    item.getName()
+            );
+
+            if (clazz.exists()) {
+                clazz.showMethods(MethodData.SearchMethod.DEFAULT);
+            }
+
             this.bukkitItem = itemStack.getMethod("asBukkitCopy", item);
 
             if (isSpecified("v1_18_R1")) {
@@ -59,7 +69,7 @@ public class ItemNBT {
                 this.setTag = item.getMethod("c", nbtCompound);
 
                 secondAttempt();
-            } else if (isSpecified("v1_19_R1")) {
+            } else if (isSpecified("v1_19_R1") || isSpecified("v1_19_R2") || isSpecified("v1_19_R3")) {
                 this.hasTag = item.getMethod("t");
                 this.getTag = item.getMethod("u");
                 this.setTag = item.getMethod("c", nbtCompound);
@@ -82,8 +92,8 @@ public class ItemNBT {
         Class<?> nbtCompound = Presets.NBT_COMPOUND.getResult();
 
         try {
-            this.setString = nbtCompound.getMethod("a", String.class, String.class);
-            this.getString = nbtCompound.getMethod("l", String.class);
+            this.setString = nbtCompound.getDeclaredMethod("a", String.class, String.class);
+            this.getString = nbtCompound.getDeclaredMethod("l", String.class);
         } catch (Exception ignored) {
             try {
                 this.setString = nbtCompound.getMethod("putString", String.class, String.class);
