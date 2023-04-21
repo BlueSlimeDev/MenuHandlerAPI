@@ -33,7 +33,7 @@ Dependency:
             <artifactId>MenuHandlerAPI</artifactId>
             <version>TAG</version>
             <!-- TAG = latest version, for example:
-            <version>0.2.1</version>
+            <version>0.3</version>
             -->
         </dependency>
 ```
