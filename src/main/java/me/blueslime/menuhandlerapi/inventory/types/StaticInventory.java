@@ -9,9 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import static org.bukkit.Bukkit.createInventory;
 
 public class StaticInventory extends MenuInventory {
@@ -51,24 +48,24 @@ public class StaticInventory extends MenuInventory {
             ItemStack itemStack = menuItem.getItemStack();
 
             itemStack = ItemNBT.addString(
-                    itemStack, "mhm-identifier",
+                    itemStack, MenuHandlerAPI.getCustomMenuPrefix() + "identifier",
                     getId()
             );
 
             itemStack = ItemNBT.addString(
-                    itemStack, "mhi-" + getId(),
+                    itemStack, MenuHandlerAPI.getCustomItemPrefix() + getId(),
                     menuItem.getIdentifier()
             );
 
             itemStack = ItemNBT.addString(
-                    itemStack, "mhm-name",
+                    itemStack, MenuHandlerAPI.getCustomMenuPrefix() + "name",
                     getId()
             );
 
             if (menuItem.isBlocked()) {
                 itemStack = ItemNBT.addString(
                         itemStack,
-                        "mha-blockedItem",
+                        MenuHandlerAPI.getCustomIdentifierPrefix() + "blockedItem",
                         "true"
                 );
             }

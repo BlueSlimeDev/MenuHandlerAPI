@@ -47,19 +47,19 @@ public class DynamicInventory extends MenuInventory {
             ItemStack itemStack = menuItem.getItemStack();
 
             itemStack = ItemNBT.addString(
-                    itemStack, "mhi-" + getId(),
+                    itemStack, MenuHandlerAPI.getCustomItemPrefix() + getId(),
                     menuItem.getIdentifier()
             );
 
             itemStack = ItemNBT.addString(
-                    itemStack, "mhm-name",
+                    itemStack, MenuHandlerAPI.getCustomMenuPrefix() + "name",
                     getId()
             );
 
             if (menuItem.isBlocked()) {
                 itemStack = ItemNBT.addString(
                         itemStack,
-                        "mha-blockedItem",
+                        MenuHandlerAPI.getCustomIdentifierPrefix() + "blockedItem",
                         "true"
                 );
             }
