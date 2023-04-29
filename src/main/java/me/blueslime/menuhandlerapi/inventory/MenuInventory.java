@@ -2,7 +2,7 @@ package me.blueslime.menuhandlerapi.inventory;
 
 import me.blueslime.menuhandlerapi.inventory.item.DefaultItemBuilder;
 import me.blueslime.menuhandlerapi.item.MenuItem;
-import me.blueslime.menuhandlerapi.utils.storage.PluginStorage;
+import me.blueslime.nmshandlerapi.utils.storage.PluginStorage;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;

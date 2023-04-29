@@ -1,115 +1,52 @@
 package me.blueslime.menuhandlerapi.item;
 
 import me.blueslime.menuhandlerapi.item.action.MenuItemAction;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class MenuItem {
-    private final MenuItemAction action;
+public interface MenuItem {
+    /**
+     * Action of the item when you clicked it
+     * @return {@link me.blueslime.menuhandlerapi.item.action.MenuItemAction}
+     */
+    MenuItemAction getAction();
 
-    private final ItemStack itemStack;
+    /**
+     * This method is used in the StaticMenu
+     * Gets the ItemStack of a player
+     * @return the itemStack
+     */
+    ItemStack getItemStack();
 
-    private final String identifier;
+    /**
+     * This method is used in the DynamicMenu
+     * Gets the ItemStack of a player
+     * @param player to obtain the item stack
+     * @return the itemStack
+     */
+    ItemStack getItemStack(Player player);
 
-    private final boolean blocked;
+    /**
+     * Checks if the item is blocked in the menu
+     * @return true if the item is blocked
+     */
+    boolean isBlocked();
 
-    private final int slot;
+    /**
+     * Identifier of the item in the menu
+     * @return item identifier
+     */
+    String getIdentifier();
 
-    private MenuItem(String identifier, int slot, ItemStack itemStack, boolean blocked, MenuItemAction action) {
-        this.identifier = identifier;
-        this.itemStack = itemStack;
-        this.blocked = blocked;
-        this.action = action;
-        this.slot = slot;
+    /**
+     * Create a copy of this MenuItem
+     * @return a new instance of the MenuItem
+     */
+    MenuItem copy();
 
-    }
-
-    public static MenuItem fromItem(String identifier, int slot, ItemStack itemStack, boolean blockedItem, MenuItemAction action) {
-        return new MenuItem(
-                identifier,
-                slot,
-                itemStack,
-                blockedItem,
-                action
-        );
-    }
-
-    public static MenuItem fromItem(String identifier, int slot, ItemStack itemStack, boolean blockedItem) {
-        return fromItem(identifier, slot, itemStack, blockedItem, null);
-    }
-
-    public static MenuItem fromItem(String identifier, int slot, ItemStack itemStack) {
-        return fromItem(identifier, slot, itemStack, false, null);
-    }
-
-    public static MenuItem fromItem(String identifier, ItemStack itemStack, boolean blockedItem) {
-        return fromItem(identifier, -1, itemStack, blockedItem, null);
-    }
-
-    public static MenuItem fromItem(String identifier, ItemStack itemStack) {
-        return fromItem(identifier, -1, itemStack, false, null);
-    }
-
-    public static MenuItemBuilder builder(String identifier, int slot) {
-        return new MenuItemBuilder(identifier, slot);
-    }
-
-    public static MenuItemBuilder builder(String identifier) {
-        return new MenuItemBuilder(identifier, -1);
-    }
-
-    public MenuItemBuilder asBuilder() {
-        return new MenuItemBuilder(
-                this.identifier,
-                this.slot
-        ).action(
-                this.action
-        ).cancelClick(
-                this.blocked
-        ).item(
-                this.itemStack
-        );
-    }
-
-    public MenuItemAction getAction() {
-        return action;
-    }
-
-    public ItemStack getItemStack() {
-        return itemStack;
-    }
-
-    public boolean isBlocked() {
-        return blocked;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public int getSlot() {
-        return slot;
-    }
-
-    public MenuItem clone(String identifier, int slot) {
-        return new MenuItem(identifier, slot, this.itemStack, this.blocked, this.action);
-    }
-
-    public MenuItem clone(String identifier, MenuItemAction action) {
-        return new MenuItem(identifier, this.slot, this.itemStack, this.blocked, action);
-    }
-
-    public MenuItem clone(String identifier, ItemStack itemStack) {
-        return new MenuItem(identifier, this.slot, itemStack, this.blocked, this.action);
-    }
-
-    @Override
-    public String toString() {
-        return "MenuItem{" +
-                "identifier=" + identifier +
-                ", slot=" + slot +
-                ", itemStack=" + itemStack +
-                ", blocked=" + blocked +
-                '}';
-    }
+    /**
+     * Slot of the item in the menu
+     * @return {@link java.lang.Integer}
+     */
+    int getSlot();
 }
-

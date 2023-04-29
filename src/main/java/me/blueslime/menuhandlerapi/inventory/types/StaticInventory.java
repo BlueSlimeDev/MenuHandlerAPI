@@ -42,7 +42,7 @@ public class StaticInventory extends MenuInventory {
         for (MenuItem item : getItemStorage().getValues()) {
             MenuItem menuItem = getItemBuilder().processItem(
                     null,
-                    item
+                    item.copy()
             );
 
             ItemStack itemStack = menuItem.getItemStack();

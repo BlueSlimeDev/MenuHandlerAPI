@@ -41,10 +41,10 @@ public class DynamicInventory extends MenuInventory {
         for (MenuItem item : getItemStorage().getValues()) {
             MenuItem menuItem = getItemBuilder().processItem(
                     player,
-                    item
+                    item.copy()
             );
 
-            ItemStack itemStack = menuItem.getItemStack();
+            ItemStack itemStack = menuItem.getItemStack(player);
 
             itemStack = ItemNBT.addString(
                     itemStack, MenuHandlerAPI.getCustomItemPrefix() + getId(),

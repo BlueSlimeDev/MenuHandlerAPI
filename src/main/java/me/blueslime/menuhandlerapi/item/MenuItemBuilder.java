@@ -39,8 +39,8 @@ public class MenuItemBuilder {
         return this;
     }
 
-    public MenuItem build() {
-        return MenuItem.fromItem(
+    public DefaultMenuItem build() {
+        return DefaultMenuItem.fromItem(
                 identifier,
                 slot,
                 itemStack,
