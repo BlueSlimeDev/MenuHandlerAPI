@@ -3,7 +3,7 @@ package me.blueslime.menuhandlerapi.listener;
 import me.blueslime.menuhandlerapi.MenuHandlerAPI;
 import me.blueslime.menuhandlerapi.inventory.MenuInventory;
 import me.blueslime.menuhandlerapi.item.MenuItem;
-import me.blueslime.menuhandlerapi.item.nbt.ItemNBT;
+import me.blueslime.utilitiesapi.item.nbt.ItemNBT;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.function.Predicate;
 
 public class InventoryClickListener implements Listener {
-
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {

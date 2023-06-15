@@ -1,5 +1,6 @@
-package me.blueslime.menuhandlerapi.item;
+package me.blueslime.menuhandlerapi.item.list.builder;
 
+import me.blueslime.menuhandlerapi.item.list.DefaultMenuItem;
 import me.blueslime.menuhandlerapi.item.action.MenuItemAction;
 import org.bukkit.inventory.ItemStack;
 

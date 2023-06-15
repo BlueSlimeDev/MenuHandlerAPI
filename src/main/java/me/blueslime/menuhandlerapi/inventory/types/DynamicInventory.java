@@ -3,8 +3,9 @@ package me.blueslime.menuhandlerapi.inventory.types;
 import me.blueslime.menuhandlerapi.MenuHandlerAPI;
 import me.blueslime.menuhandlerapi.inventory.MenuInventory;
 import me.blueslime.menuhandlerapi.item.MenuItem;
-import me.blueslime.menuhandlerapi.item.nbt.ItemNBT;
+import me.blueslime.menuhandlerapi.item.list.WrapperMenuItem;
 import me.blueslime.menuhandlerapi.utils.SlotHandler;
+import me.blueslime.utilitiesapi.item.nbt.ItemNBT;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -39,10 +40,19 @@ public class DynamicInventory extends MenuInventory {
         );
 
         for (MenuItem item : getItemStorage().getValues()) {
-            MenuItem menuItem = getItemBuilder().processItem(
-                    player,
-                    item.copy()
-            );
+            MenuItem menuItem;
+
+            if (item instanceof WrapperMenuItem) {
+                menuItem = getItemBuilder().processItem(
+                        player,
+                        item
+                );
+            } else {
+                menuItem = getItemBuilder().processItem(
+                        player,
+                        item.copy()
+                );
+            }
 
             ItemStack itemStack = menuItem.getItemStack(player);
 
