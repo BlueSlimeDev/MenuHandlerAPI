@@ -1,6 +1,8 @@
 package me.blueslime.menuhandlerapi.item;
 
 import me.blueslime.menuhandlerapi.item.action.MenuItemAction;
+import me.blueslime.menuhandlerapi.item.list.builder.MenuItemBuilder;
+import me.blueslime.menuhandlerapi.item.list.builder.WrapperMenuItemBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -49,4 +51,12 @@ public interface MenuItem {
      * @return {@link java.lang.Integer}
      */
     int getSlot();
+
+    default MenuItemBuilder asBuilder(String identifier, int slot) {
+        return new MenuItemBuilder(identifier, slot);
+    }
+
+    default WrapperMenuItemBuilder asWrapper(String identifier, int slot) {
+        return new WrapperMenuItemBuilder(identifier, slot);
+    }
 }
