@@ -6,7 +6,7 @@
 
 ---
 
-* Support from 1.8.x to 1.19.x
+* Support from 1.8.x to 1.20.x
 * Doesn't require Adapters like other menu handlers
 * Uses NBT for Item Actions
 * Per Player Inventory or Static Inventories
@@ -37,7 +37,7 @@ Dependency:
             <artifactId>MenuHandlerAPI</artifactId>
             <version>TAG</version>
             <!-- TAG = latest version, for example:
-            <version>0.7</version>
+            <version>0.8</version>
             -->
         </dependency>
 ```
