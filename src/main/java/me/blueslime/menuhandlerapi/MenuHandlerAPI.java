@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+@SuppressWarnings("unused")
 public final class MenuHandlerAPI {
     private final ConcurrentHashMap<String, MenuInventory> menuMap = new ConcurrentHashMap<>();
 
@@ -17,7 +18,11 @@ public final class MenuHandlerAPI {
 
     private static final MenuHandlerAPI MENU_HANDLER_API = new MenuHandlerAPI();
 
+    private static JavaPlugin PLUGIN = null;
+
     public static void register(JavaPlugin plugin) {
+        PLUGIN = plugin;
+
         plugin.getServer().getPluginManager().registerEvents(
                 new InventoryClickListener(),
                 plugin
@@ -36,6 +41,12 @@ public final class MenuHandlerAPI {
         CUSTOM_IDENTIFIER_PREFIX = customIdentifierPrefix;
     }
 
+    public void setCommonPrefix(String common) {
+        CUSTOM_IDENTIFIER_PREFIX = CUSTOM_IDENTIFIER_PREFIX.replace("mh", common);
+        CUSTOM_MENU_PREFIX = CUSTOM_MENU_PREFIX.replace("mh", common);
+        CUSTOM_ITEM_PREFIX = CUSTOM_ITEM_PREFIX.replace("mh", common);
+    }
+
     public static void setCustomItemPrefix(String newPrefix) {
         CUSTOM_ITEM_PREFIX = newPrefix;
     }
@@ -50,5 +61,9 @@ public final class MenuHandlerAPI {
 
     public static String getCustomMenuPrefix() {
         return CUSTOM_MENU_PREFIX;
+    }
+
+    public static JavaPlugin getInstancedPlugin() {
+        return PLUGIN;
     }
 }

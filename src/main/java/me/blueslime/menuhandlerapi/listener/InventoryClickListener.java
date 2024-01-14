@@ -57,9 +57,10 @@ public class InventoryClickListener implements Listener {
 
                     Predicate<InventoryClickEvent> predicate = menuItem.getAction().getClickEvent();
 
-                    if (predicate != null) {
-                        event.setCancelled(predicate.test(event));
-                    }
+                    boolean result = predicate == null || predicate.test(event);
+
+                    event.setCancelled(menuItem.isBlocked() || result);
+
                 }
             }
         }
