@@ -8,17 +8,10 @@
 
 * Support from 1.8.x to 1.20.x
 * Doesn't require Adapters like other menu handlers
-* Uses NBT for Item Actions
-* Per Player Inventory or Static Inventories
+* Uses NBT for Item Actions on legacy register and Inventory Holder check on updated checks.
+* Advanced Inventory Management
 * Editable Item Actions
 * Editable introduce-items to inventories
-
----
-
-## Adding:
-* Inventory Open Event for OpenActions
-* Inventory Close Event for CloseActions
-* ItemBuilder
 
 ---
 
@@ -37,7 +30,7 @@ Dependency:
             <artifactId>MenuHandlerAPI</artifactId>
             <version>TAG</version>
             <!-- TAG = latest version, for example:
-            <version>0.8</version>
+            <version>0.9</version>
             -->
         </dependency>
 ```

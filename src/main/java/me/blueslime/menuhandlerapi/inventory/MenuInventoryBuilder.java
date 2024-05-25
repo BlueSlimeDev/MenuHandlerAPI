@@ -1,19 +1,21 @@
 package me.blueslime.menuhandlerapi.inventory;
 
+import me.blueslime.menuhandlerapi.MenuHandlerAPI;
 import me.blueslime.menuhandlerapi.inventory.types.DynamicInventory;
+import me.blueslime.menuhandlerapi.inventory.types.HolderInventory;
 import me.blueslime.menuhandlerapi.inventory.types.StaticInventory;
 
 public class MenuInventoryBuilder {
     private boolean canIntroduce;
-    private boolean perPlayer;
     private String identifier;
     private String title;
+    private int menuType;
     private int slots;
 
-    private MenuInventoryBuilder(String identifier, int slots, String title, boolean perPlayer, boolean canIntroduce) {
+    private MenuInventoryBuilder(String identifier, int slots, String title, int menuType, boolean canIntroduce) {
         this.canIntroduce = canIntroduce;
         this.identifier   = identifier;
-        this.perPlayer    = perPlayer;
+        this.menuType     = menuType;
         this.title        = title;
         this.slots        = slots;
     }
@@ -28,15 +30,26 @@ public class MenuInventoryBuilder {
         return this;
     }
 
+    @Deprecated
+    public MenuInventoryBuilder perPlayer(boolean perPlayer) {
+        return type(
+            perPlayer ?
+                MenuHandlerAPI.REGISTERED_LEGACY ?
+                    MenuType.LEGACY_DYNAMIC_INVENTORY :
+                    MenuType.LEGACY_STATIC_INVENTORY :
+                MenuType.UPDATED_STATIC_INVENTORY
+        );
+    }
+
     /**
      * Customize if the plugin creates a new inventory
      * per player, toggle this option if you want to use
      * variables per-item with plugins like PlaceholdersAPI
      * or with your own plugin
-     * @param perPlayer {@link org.bukkit.inventory.Inventory}
+     * @param menuType {@link org.bukkit.inventory.Inventory}
      */
-    public MenuInventoryBuilder perPlayer(boolean perPlayer) {
-        this.perPlayer = perPlayer;
+    public MenuInventoryBuilder type(int menuType) {
+        this.menuType = menuType;
         return this;
     }
 
@@ -59,8 +72,8 @@ public class MenuInventoryBuilder {
         return canIntroduce;
     }
 
-    public boolean isPerPlayer() {
-        return perPlayer;
+    public int getMenuType() {
+        return menuType;
     }
 
     public String getTitle() {
@@ -73,7 +86,7 @@ public class MenuInventoryBuilder {
 
     public static MenuInventoryBuilder builder(String identifier, String title, int slots) {
         return new MenuInventoryBuilder(
-                identifier, slots, title, false, false
+                identifier, slots, title, MenuType.UPDATED_STATIC_INVENTORY, false
         );
     }
 
@@ -94,19 +107,28 @@ public class MenuInventoryBuilder {
     }
 
     public MenuInventory build() {
-        if (perPlayer) {
-            return new DynamicInventory(
-                    identifier,
-                    title,
-                    slots,
-                    canIntroduce
+        if (menuType >= MenuType.UPDATED_STATIC_INVENTORY) {
+            return new HolderInventory(
+                identifier,
+                title,
+                slots
             );
         }
-        return new StaticInventory(
+
+        if (menuType == MenuType.LEGACY_DYNAMIC_INVENTORY) {
+            return new DynamicInventory(
                 identifier,
                 title,
                 slots,
                 canIntroduce
+            );
+        }
+        return new StaticInventory(
+            identifier,
+            title,
+            slots,
+            canIntroduce
         );
     }
+
 }

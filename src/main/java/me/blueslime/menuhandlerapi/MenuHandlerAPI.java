@@ -2,6 +2,7 @@ package me.blueslime.menuhandlerapi;
 
 import me.blueslime.menuhandlerapi.inventory.MenuInventory;
 import me.blueslime.menuhandlerapi.listener.InventoryClickListener;
+import me.blueslime.menuhandlerapi.listener.MenuClickListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,15 +19,26 @@ public final class MenuHandlerAPI {
 
     private static final MenuHandlerAPI MENU_HANDLER_API = new MenuHandlerAPI();
 
+    public static boolean REGISTERED_LEGACY = false;
+
     private static JavaPlugin PLUGIN = null;
 
-    public static void register(JavaPlugin plugin) {
+    public static void register(boolean registerLegacy, JavaPlugin plugin) {
         PLUGIN = plugin;
 
-        plugin.getServer().getPluginManager().registerEvents(
+        REGISTERED_LEGACY = registerLegacy;
+
+        if (registerLegacy) {
+            plugin.getServer().getPluginManager().registerEvents(
                 new InventoryClickListener(),
                 plugin
-        );
+            );
+        } else {
+            plugin.getServer().getPluginManager().registerEvents(
+                new MenuClickListener(),
+                plugin
+            );
+        }
     }
 
     public static ConcurrentHashMap<String, MenuInventory> getMenus() {

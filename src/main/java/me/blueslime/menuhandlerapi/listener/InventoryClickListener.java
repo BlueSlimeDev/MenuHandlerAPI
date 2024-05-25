@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class InventoryClickListener implements Listener {
@@ -55,11 +56,15 @@ public class InventoryClickListener implements Listener {
 
                 if (menuItem != null && menuItem.getAction() != null) {
 
-                    Predicate<InventoryClickEvent> predicate = menuItem.getAction().getClickEvent();
+                    Consumer<InventoryClickEvent> consumer = menuItem.getAction().getClickEvent();
 
-                    boolean result = predicate == null || predicate.test(event);
+                    if (consumer != null) {
+                        consumer.accept(event);
+                    }
 
-                    event.setCancelled(menuItem.isBlocked() || result);
+                    if (menuItem.isBlocked()) {
+                        event.setCancelled(true);
+                    }
 
                 }
             }

@@ -6,7 +6,7 @@
 
     <groupId>me.blueslime.menuhandlerapi</groupId>
     <artifactId>MenuHandlerAPI</artifactId>
-    <version>0.8</version>
+    <version>0.9</version>
     <packaging>jar</packaging>
 
     <name>MenuHandlerAPI</name>
@@ -77,7 +77,7 @@
         <dependency>
             <groupId>com.github.BlueSlimeDev</groupId>
             <artifactId>UtilitiesAPI</artifactId>
-            <version>0.9</version>
+            <version>1.0.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
